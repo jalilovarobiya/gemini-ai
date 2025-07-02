@@ -87,11 +87,13 @@ class _GiminiScreenState extends State<GiminiScreen> {
 
     try {
       if (localImg != null) {
-        // final imageBytes = await localImg.readAsBytes();
-        // aiRespns = await Gemini.instance.textAndImage(
-        //   text: txt,
-        //   images: [imageBytes],
-        // );
+        final imageBytes = await localImg.readAsBytes();
+
+        await Gemini.instance
+            .textAndImage(text: txt, images: [imageBytes])
+            .then((res) {
+              aiRespns = res?.output ?? "javob yoq";
+            });
       } else {
         final response = await Gemini.instance.text(txt);
         aiRespns = response?.output ?? "";
