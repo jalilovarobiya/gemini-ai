@@ -25,44 +25,93 @@ class _GiminiScreenState extends State<GiminiScreen> {
           "Gimini app",
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
         ),
+        actions: [
+          PopupMenuButton(
+            onSelected: (value) {
+              print("Tanlangan: $value");
+            },
+            itemBuilder:
+                (BuildContext context) => <PopupMenuEntry>[
+                  PopupMenuItem(value: 'Dart', child: Text('Dart')),
+                  PopupMenuItem(value: 'Python', child: Text('Python')),
+                  PopupMenuItem(value: 'JavaScript', child: Text('JavaScript')),
+                ],
+          ),
+        ],
       ),
       body: ChatBody(messages: messages),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
+        padding: EdgeInsets.all(10),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            IconButton(
-              onPressed: () async {
-                final ImagePicker picker = ImagePicker();
-                final XFile? image = await picker.pickImage(
-                  source: ImageSource.gallery,
-                  imageQuality: 85,
-                  maxHeight: 1024,
-                  maxWidth: 1024,
-                );
-                if (image != null) {
-                  setState(() {
-                    img = File(image.path);
-                  });
-                }
-              },
-              icon: Icon(Icons.image, size: 30, color: Colors.blue),
-            ),
-            Expanded(
-              child: TextField(
-                controller: controller,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: "Matn kiriting",
+            if (img != null)
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Stack(
+                  alignment: Alignment.topRight,
+                  children: [
+                    Image.file(
+                      img!,
+                      width: double.infinity,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          img = null;
+                        });
+                      },
+                      icon: Icon(Icons.close, color: Colors.red, size: 50),
+                    ),
+                  ],
                 ),
-                textInputAction: TextInputAction.send,
-                onSubmitted: (_) => _sendMessage(),
               ),
-            ),
-            IconButton(
-              onPressed: _sendMessage,
-              icon: Icon(Icons.send, size: 40, color: Colors.green),
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                IconButton(
+                  onPressed: () async {
+                    final ImagePicker picker = ImagePicker();
+                    final XFile? image = await picker.pickImage(
+                      source: ImageSource.gallery,
+                      imageQuality: 85,
+                      maxHeight: 1024,
+                      maxWidth: 1024,
+                    );
+                    if (image != null) {
+                      setState(() {
+                        img = File(image.path);
+                      });
+                    }
+                  },
+                  icon: Icon(Icons.image, size: 30, color: Colors.blue),
+                ),
+                Expanded(
+                  child: TextField(
+                    controller: controller,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: "Matn kiriting",
+                    ),
+                    textInputAction: TextInputAction.send,
+                    onSubmitted: (_) => _sendMessage(),
+                  ),
+                ),
+                IconButton(
+                  onPressed: _sendMessage,
+                  icon: Icon(
+                    Icons.keyboard_voice_outlined,
+                    size: 35,
+                    color: Colors.green,
+                  ),
+                ),
+                IconButton(
+                  onPressed: _sendMessage,
+                  icon: Icon(Icons.send, size: 35, color: Colors.green),
+                ),
+              ],
             ),
           ],
         ),
