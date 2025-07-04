@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
-import 'package:project_with_gimini/view/screen/gimini_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:project_with_gimini/core/routes/app_routes.dart';
 
 const apiKey = "AIzaSyCGuk4NBdYIvrKeGDQtcPDBgVnFsHitiTU";
 
 void main() {
   Gemini.init(apiKey: apiKey);
-  runApp(const MainApp());
+  runApp(ProviderScope(child: const MainApp()));
 }
 
 class MainApp extends StatelessWidget {
@@ -14,6 +15,9 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: GiminiScreen());
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      routerConfig: AppRoutes.router,
+    );
   }
 }

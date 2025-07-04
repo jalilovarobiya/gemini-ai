@@ -45,5 +45,24 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<!-- Mikrofon -->
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Ilova mikrofondan foydalanish uchun ruxsat so‘raydi.</string>
+
+	<!-- Internet (aslida alohida permission emas, lekin tarmoqda ishlayotganingizni tushuntirish mumkin) -->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+
+	<!-- Bluetooth (iOS 13+ dan boshlab kerak bo‘ladi) -->
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Ilova Bluetooth qurilmalarga ulanish uchun ruxsat so‘raydi.</string>
+
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Ilova Bluetooth orqali qurilmalarga ulanadi.</string>
+
+
 </dict>
 </plist>
