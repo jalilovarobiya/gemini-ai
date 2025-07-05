@@ -16,6 +16,7 @@ dependencies:
   go_router: ^16.0.0
   google_fonts: ^6.2.1
   image_picker: ^1.1.2
+  mockito: ^5.4.6
   speech_to_text: ^7.1.0
 
 dev_dependencies:
